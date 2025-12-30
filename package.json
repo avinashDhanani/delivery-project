@@ -1,0 +1,40 @@
+{
+  "name": "nextjs-template",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "type-check": "tsc --noEmit",
+    "db:create": "sequelize db:create",
+    "db:migrate": "sequelize db:migrate",
+    "db:migrate:undo": "sequelize db:migrate:undo",
+    "db:seed": "tsx seeds/seed.ts",
+    "db:seed:undo": "sequelize db:seed:undo"
+  },
+  "dependencies": {
+    "@types/pg": "^8.16.0",
+    "dotenv": "^17.2.3",
+    "next": "14.0.4",
+    "pg": "^8.16.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sequelize": "^6.37.7",
+    "sequelize-typescript": "^2.1.6"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.4",
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
+    "eslint": "^8.55.0",
+    "eslint-config-next": "14.0.4",
+    "sequelize-cli": "^6.6.3",
+    "tsx": "^4.21.0",
+    "typescript": "^5.3.3"
+  }
+}
