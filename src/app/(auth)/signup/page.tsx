@@ -1,0 +1,153 @@
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
+
+const SignUpPage = () => {
+  return (
+    <div className="w-full flex flex-col items-center justify-center max-w-[653px] mx-auto">
+      <h1 className="text-center font-bold text-[28px] 1xl:text-[34px] text-white mb-1">
+        CREATE YOUR ACCOUNT
+      </h1>
+      <p className="text-center font-medium text-sm 1xl:text-base text-white mb-5">
+        Welcome to Ark Air - Let's create account
+      </p>
+      <form
+        action=""
+        className="w-full rounded-[25px] 1xl:rounded-[35px] border border-solid p-5 1xl:p-[30px] bg-white border-theme-white-100 shadow-sm"
+      >
+        <div className="w-full grid grid-cols-2 mb-[30px] gap-4">
+          <div className="w-full">
+            <label
+              htmlFor=""
+              className="text-base 1xl:text-lg font-semibold text-theme-black-50 inline-flex mb-[10px]"
+            >
+              First Name
+            </label>
+            <div className="w-full flex items-center relative">
+              <input
+                type="text"
+                placeholder="John"
+                className="text-base 1xl:text-lg font-medium placeholder:text-theme-black-150 w-full min-h-[56px] 1xl:min-h-[66px] 1xl:px-5 px-4 py-3 1xl:py-4 rounded-xl 1xl:rounded-[15px] border border-theme-white-100 bg-theme-white-150 outline-none text-theme-darkblue-00"
+              />
+            </div>
+          </div>
+          <div className="w-full">
+            <label
+              htmlFor=""
+              className="text-base 1xl:text-lg font-semibold text-theme-black-50 inline-flex mb-[10px]"
+            >
+              Last Name
+            </label>
+            <div className="w-full flex items-center relative">
+              <input
+                type="text"
+                placeholder="Deo"
+                className="text-base 1xl:text-lg font-medium placeholder:text-theme-black-150 w-full min-h-[56px] 1xl:min-h-[66px] 1xl:px-5 px-4 py-3 1xl:py-4 rounded-xl 1xl:rounded-[15px] border border-theme-white-100 bg-theme-white-150 outline-none text-theme-darkblue-00"
+              />
+            </div>
+          </div>
+          <div className="w-full">
+            <label
+              htmlFor=""
+              className="text-base 1xl:text-lg font-semibold text-theme-black-50 inline-flex mb-[10px]"
+            >
+              Email Id
+            </label>
+            <div className="w-full flex items-center relative">
+              <input
+                type="text"
+                placeholder="example@gmail.com"
+                className="text-base 1xl:text-lg font-medium placeholder:text-theme-black-150 w-full min-h-[56px] 1xl:min-h-[66px] 1xl:px-5 px-4 py-3 1xl:py-4 rounded-xl 1xl:rounded-[15px] border border-theme-white-100 bg-theme-white-150 outline-none text-theme-darkblue-00"
+              />
+            </div>
+          </div>
+          <div className="w-full">
+            <label
+              htmlFor=""
+              className="text-base 1xl:text-lg font-semibold text-theme-black-50 inline-flex mb-[10px]"
+            >
+              Phone Number
+            </label>
+            <div className="w-full flex items-center relative">
+              <input
+                type="text"
+                placeholder="+91 098 765 4321"
+                className="text-base 1xl:text-lg font-medium placeholder:text-theme-black-150 w-full min-h-[56px] 1xl:min-h-[66px] 1xl:px-5 px-4 py-3 1xl:py-4 rounded-xl 1xl:rounded-[15px] border border-theme-white-100 bg-theme-white-150 outline-none text-theme-darkblue-00"
+              />
+            </div>
+          </div>
+          <div className="w-full">
+            <label
+              htmlFor=""
+              className="text-base 1xl:text-lg font-semibold text-theme-black-50 inline-flex mb-[10px]"
+            >
+              Password
+            </label>
+            <div className="w-full flex items-center relative">
+              <input
+                type="text"
+                placeholder="123456789"
+                className="pr-14
+              text-base 1xl:text-lg font-medium placeholder:text-theme-black-150 w-full min-h-[56px] 1xl:min-h-[66px] 1xl:px-5 px-4 py-3 1xl:py-4 rounded-xl 1xl:rounded-[15px] border border-theme-white-100 bg-theme-white-150 outline-none text-theme-darkblue-00
+              "
+              />
+              <button className="size-4 1xl:size-5 flex items-center justify-center cursor-pointer hover:opacity-75 absolute right-4 1xl:right-5">
+                <Image
+                  className="size-full"
+                  src={"assets/images/svg/eye-close.svg"}
+                  width={18}
+                  height={18}
+                  alt="icon"
+                ></Image>
+              </button>
+            </div>
+          </div>
+          <div className="w-full">
+            <label
+              htmlFor=""
+              className="text-base 1xl:text-lg font-semibold text-theme-black-50 inline-flex mb-[10px]"
+            >
+              Confirm Password
+            </label>
+            <div className="w-full flex items-center relative">
+              <input
+                type="text"
+                placeholder="123456789"
+                className="pr-14
+              text-base 1xl:text-lg font-medium placeholder:text-theme-black-150 w-full min-h-[56px] 1xl:min-h-[66px] 1xl:px-5 px-4 py-3 1xl:py-4 rounded-xl 1xl:rounded-[15px] border border-theme-white-100 bg-theme-white-150 outline-none text-theme-darkblue-00
+              "
+              />
+              <button className="size-4 1xl:size-5 flex items-center justify-center cursor-pointer hover:opacity-75 absolute right-4 1xl:right-5">
+                <Image
+                  className="size-full"
+                  src={"assets/images/svg/eye-close.svg"}
+                  width={18}
+                  height={18}
+                  alt="icon"
+                ></Image>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className="w-full flex items-center justify-end">
+          <button
+            type="submit"
+            title="Sign Up"
+            className="w-[150px] p-2 h-12 1xl:h-14 cursor-pointer flex items-center justify-center gap-2.5 text-white text-base 1xl:text-lg font-semibold bg-theme-purple-50 hover:bg-theme-purple-00 rounded-[10px]"
+          >
+            <Image
+              className="w-5 1xl:w-[24px] img-filter-white h-auto shrink-0"
+              src={"assets/images/svg/user-black-icon.svg"}
+              width={24}
+              height={24}
+              alt="logo"
+            ></Image>
+            <span className="relative top-0.5">Sign Up</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+};
+
+export default SignUpPage;

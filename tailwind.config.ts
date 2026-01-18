@@ -21,6 +21,7 @@ const config: Config = {
       md: "768px",
       lg: "1024px",
       xl: "1280px",
+      "1xl": "1440px",
       "2xl": "1536px",
       "3xl": "1780px",
     },
@@ -41,21 +42,25 @@ const config: Config = {
           white: {
             "00": withOpacity("white"),
             "50": withOpacity("white-50"),
+            "100": withOpacity("white-100"),
+            "150": withOpacity("white-150"),
+            "200": withOpacity("white-200"),
           },
           black: {
             "00": withOpacity("black"),
             "50": withOpacity("black-50"),
             "100": withOpacity("black-100"),
-          },
-          cyan: {
-            "00": withOpacity("cyan"),
-            "50": withOpacity("cyan-50"),
-            "100": withOpacity("cyan-100"),
-            "150": withOpacity("cyan-150"),
-            "200": withOpacity("cyan-200"),
+            "150": withOpacity("black-150"),
           },
           purple: {
             "00": withOpacity("purple"),
+            "50": withOpacity("purple-50"),
+          },
+          darkblue: {
+            "00": withOpacity("darkblue"),
+          },
+          blue: {
+            "00": withOpacity("blue"),
           },
         },
       },

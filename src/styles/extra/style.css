@@ -27,3 +27,16 @@ input[type="number"] {
 .authGradiant{
   background: linear-gradient(180deg, #9892BE 0%, #D6C8D5 100%);
 }
+
+.img-filter-white{
+  filter: brightness(0) saturate(100%) invert(89%) sepia(100%) saturate(0%) hue-rotate(329deg) brightness(107%) contrast(102%);
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE & Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;             /* Chrome, Safari */
+}
