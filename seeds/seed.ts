@@ -11,7 +11,6 @@ async function main() {
 
     // Create sample test records
     const [test1, created1] = await Test.upsert({
-      id: 'test-1',
       name: 'Sample Test Record 1',
       description: 'This is the first test record',
       value: 42,
@@ -19,7 +18,6 @@ async function main() {
     });
 
     const [test2, created2] = await Test.upsert({
-      id: 'test-2',
       name: 'Sample Test Record 2',
       description: 'This is the second test record',
       value: 100,

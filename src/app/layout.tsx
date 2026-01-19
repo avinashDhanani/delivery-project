@@ -3,9 +3,11 @@
 import { FC } from "react";
 import { Viewport } from "next";
 import { DM_Sans } from "next/font/google";
+import { Provider } from 'react-redux';
 import { IChildprops } from "../constants/child-prop.interface";
 import "../styles/global.css";
 import { createDarkModeVariables, createLightModeVariables } from "../theme";
+import { store } from "../store/store";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -32,7 +34,9 @@ const RootLayout: FC<Readonly<IChildprops>> = ({ children }) => {
         <style jsx global>{`
           ${createLightModeVariables} ${createDarkModeVariables}
         `}</style>
-        {children}
+        <Provider store={store}>
+          {children}
+        </Provider>
       </body>
     </html>
   );

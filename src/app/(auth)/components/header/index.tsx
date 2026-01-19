@@ -22,7 +22,12 @@ const AuthHeader = () => {
           </Link>
           <div className="inline-flex items-center gap-4">
             <p className="text-sm 1xl:text-base text-theme-black-50">
-              Don’t have an account?
+              <Link
+                href={"/signup"}
+                className="cursor-pointer font-semibold text-sm 1xl:text-base  hover:underline hover:underline-offset-4"
+              >
+                Don’t have an account?
+              </Link>
             </p>
             <Link
               href={""}

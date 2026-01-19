@@ -1,6 +1,5 @@
 import { Sequelize } from 'sequelize';
 import { config } from 'dotenv';
-import '../models/Test'; // Import to initialize the model
 
 // Load environment variables from .env.local
 config({ path: '.env.local' });

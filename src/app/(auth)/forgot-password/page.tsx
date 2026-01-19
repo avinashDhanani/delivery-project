@@ -1,8 +1,70 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, AppDispatch } from "../../../store/store";
+import { setLoading, setError, setOtpRequired, setOtpType } from "../../../store/slices/authSlice";
+
+// Validation schema
+const forgotPasswordSchema = z.object({
+  email: z.string().email("Please enter a valid email address"),
+});
+
+type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>;
 
 const ForgotPasswordPage = () => {
+  const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
+
+  const { error, isLoading } = useSelector((state: RootState) => state.auth);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError: setFormError,
+    clearErrors
+  } = useForm<ForgotPasswordFormData>({
+    resolver: zodResolver(forgotPasswordSchema),
+  });
+
+  const onSubmit = async (data: ForgotPasswordFormData) => {
+    dispatch(setLoading(true));
+    dispatch(setError(null));
+    clearErrors();
+
+    try {
+      const response = await fetch('/api/auth/forgot-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: data.email }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        // Set OTP type and redirect to verification
+        dispatch(setOtpType('forgot_password'));
+        dispatch(setOtpRequired(true));
+        router.push(`/verify?email=${encodeURIComponent(data.email)}`);
+      } else {
+        dispatch(setError(result.message || 'Failed to send reset email'));
+      }
+    } catch (error) {
+      dispatch(setError('Network error. Please try again.'));
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+
   return (
     <div className="w-full flex flex-col items-center justify-center max-w-[465px] mx-auto">
       <h1 className="text-center font-bold text-[28px] 1xl:text-[34px] text-white mb-1">
@@ -12,10 +74,7 @@ const ForgotPasswordPage = () => {
         Don’t worry! Enter your registered email address to get password reset
         instructions.
       </p>
-      <form
-        action=""
-        className="w-full rounded-[25px] 1xl:rounded-[35px] border border-solid p-5 1xl:p-[30px] bg-white border-theme-white-100 shadow-sm"
-      >
+      <form onSubmit={handleSubmit(onSubmit)} className="w-full rounded-[25px] 1xl:rounded-[35px] border border-solid p-5 1xl:p-[30px] bg-white border-theme-white-100 shadow-sm">
         <div className="w-full flex items-center justify-center mb-5">
           <Image
             className="size-20 1xl:size-[100px] shrink-0"
@@ -25,19 +84,33 @@ const ForgotPasswordPage = () => {
             alt="icon"
           ></Image>
         </div>
+
+        {error && (
+          <div className="w-full mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+            <p className="text-red-600 text-sm">{error}</p>
+          </div>
+        )}
+
         <div className="w-full mb-4">
           <label
-            htmlFor=""
+            htmlFor="email"
             className="text-base 1xl:text-lg font-semibold text-theme-black-50 inline-flex mb-[10px]"
           >
             Email Address
           </label>
-          <div className="w-full flex items-center relative">
+          <div className="w-full flex flex-col">
             <input
-              type="text"
+              {...register("email")}
+              type="email"
+              id="email"
               placeholder="Sample@gmail.com"
-              className="text-base 1xl:text-lg font-medium placeholder:text-theme-black-150 w-full min-h-[56px] 1xl:min-h-[66px] 1xl:px-5 px-4 py-3 1xl:py-4 rounded-xl 1xl:rounded-[15px] border border-theme-white-100 bg-theme-white-150 outline-none text-theme-darkblue-00"
+              className={`text-base 1xl:text-lg font-medium placeholder:text-theme-black-150 w-full min-h-[56px] 1xl:min-h-[66px] 1xl:px-5 px-4 py-3 1xl:py-4 rounded-xl 1xl:rounded-[15px] border bg-theme-white-150 outline-none text-theme-darkblue-00 ${
+                errors.email ? 'border-red-500' : 'border-theme-white-100'
+              }`}
             />
+            {errors.email && (
+              <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+            )}
           </div>
         </div>
         <div className="w-full flex items-center gap-1.5 mb-5 1xl:mb-[30px]">
@@ -54,10 +127,13 @@ const ForgotPasswordPage = () => {
         <div className="w-full mb-4 1xl:mb-5">
           <button
             type="submit"
-            title="Confirm"
-            className="w-full p-2 h-12 1xl:h-14 cursor-pointer flex items-center justify-center gap-2.5 text-white text-base 1xl:text-lg font-semibold bg-theme-purple-50 hover:bg-theme-purple-00 rounded-[10px]"
+            disabled={isLoading}
+            title="Send"
+            className="w-full p-2 h-12 1xl:h-14 cursor-pointer flex items-center justify-center gap-2.5 text-white text-base 1xl:text-lg font-semibold bg-theme-purple-50 hover:bg-theme-purple-00 rounded-[10px] disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <span className="relative top-0.5">Send</span>
+            <span className="relative top-0.5">
+              {isLoading ? 'Sending...' : 'Send'}
+            </span>
           </button>
         </div>
         <div className="w-full flex items-center justify-center gap-1.5">
@@ -65,7 +141,7 @@ const ForgotPasswordPage = () => {
             Back to
           </p>
           <Link
-            href={""}
+            href={"/login"}
             className="cursor-pointer font-semibold text-sm 1xl:text-base text-theme-blue-00 hover:underline hover:underline-offset-4"
           >
             Login

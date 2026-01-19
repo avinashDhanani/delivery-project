@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import Test from '../../../models/Test';
+import { Test } from '../../../models';
 import sequelize from '../../../lib/database';
 
 export async function GET() {

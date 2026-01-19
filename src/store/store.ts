@@ -1,9 +1,17 @@
-// Redux Store - Template
-// Configure your Redux store here
+import { configureStore } from '@reduxjs/toolkit';
+import authSlice from './slices/authSlice';
 
-// TODO: Add store configuration
-export const store = {};
+export const store = configureStore({
+  reducer: {
+    auth: authSlice,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE'],
+      },
+    }),
+});
 
-// TODO: Add RootState and AppDispatch types
-export type RootState = {};
-export type AppDispatch = {};
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

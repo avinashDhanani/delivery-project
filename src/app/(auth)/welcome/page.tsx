@@ -2,24 +2,81 @@
 
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store/store";
+import { clientAuthUtils } from "../../../lib/clientAuth";
 import Modal from "react-modal";
 
 const WelcomePage = () => {
-  const [modal1IsOpen, set1IsOpen] = useState(false);
+  const [modal1IsOpen, set1IsOpen] = useState(true);
   const [modal2IsOpen, set2IsOpen] = useState(false);
   const [modal3IsOpen, set3IsOpen] = useState(false);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+  const router = useRouter();
+  const { user, isAuthenticated } = useSelector((state: RootState) => state.auth);
 
   useEffect(() => {
-    // Required for accessibility & to avoid SSR warning
-    Modal.setAppElement("body");
-  }, []);
+    const checkAuthAndKyc = async () => {
+      // Check authentication first
+      if (!clientAuthUtils.isAuthenticated()) {
+        router.push('/login');
+        return;
+      }
+
+      try {
+        // Fetch user profile to check kyc_status
+        const response = await fetch('/api/user/profile',{headers: {
+          ...clientAuthUtils.getAuthHeaders(),
+        }});
+        const data = await response.json();
+
+        if (data.success && data.data?.user) {
+          const kycStatus = data.data.user.kyc_status;
+
+          // if (kycStatus === 0 || kycStatus === 3) {
+          //   // KYC not done or rejected, go to KYC page
+          //   router.push('/kyc');
+          //   return;
+          // } else if (kycStatus === 2) {
+          //   // KYC approved, go to dashboard
+          //   router.push('/dashboard');
+          //   return;
+          // }
+          // kycStatus 1: allow access to welcome page
+        }
+      } catch (error) {
+        console.error('Failed to check KYC status:', error);
+      }
+
+      // Required for accessibility & to avoid SSR warning
+      Modal.setAppElement("body");
+      setIsCheckingAuth(false);
+    };
+
+    checkAuthAndKyc();
+  }, [router]);
 
   const open1Modal = () => set1IsOpen(true);
   const open2Modal = () => set2IsOpen(true);
   const open3Modal = () => set3IsOpen(true);
-  const close1Modal = () => set1IsOpen(false);
+  const close1Modal = () => set1IsOpen(true);
   const close2Modal = () => set2IsOpen(false);
   const close3Modal = () => set3IsOpen(false);
+
+  // Show loading while checking authentication
+  if (isCheckingAuth || !isAuthenticated || !user) {
+    return (
+      <div className="w-full flex flex-col items-center justify-center max-w-[695px] mx-auto">
+        <div className="flex items-center justify-center min-h-[400px]">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-theme-purple-00 mx-auto"></div>
+            <p className="mt-4 text-theme-black-50">Loading...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
