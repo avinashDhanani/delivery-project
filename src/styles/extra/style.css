@@ -24,19 +24,36 @@ input[type="number"] {
   @apply !max-w-[1440px];
 }
 
-.authGradiant{
-  background: linear-gradient(180deg, #9892BE 0%, #D6C8D5 100%);
+.authGradiant {
+  background: linear-gradient(180deg, #9892be 0%, #d6c8d5 100%);
 }
 
-.img-filter-white{
-  filter: brightness(0) saturate(100%) invert(89%) sepia(100%) saturate(0%) hue-rotate(329deg) brightness(107%) contrast(102%);
+.img-filter-white {
+  filter: brightness(0) saturate(100%) invert(89%) sepia(100%) saturate(0%)
+    hue-rotate(329deg) brightness(107%) contrast(102%);
+}
+
+.img-filter-red{
+  filter: brightness(0) saturate(100%) invert(10%) sepia(97%) saturate(4226%) hue-rotate(351deg) brightness(120%) contrast(121%);
 }
 
 .hide-scrollbar {
-  -ms-overflow-style: none;  /* IE & Edge */
-  scrollbar-width: none;     /* Firefox */
+  -ms-overflow-style: none; /* IE & Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .hide-scrollbar::-webkit-scrollbar {
-  display: none;             /* Chrome, Safari */
+  display: none; /* Chrome, Safari */
+}
+
+.authGradiant {
+  background: linear-gradient(180deg, #9892be 0%, #d6c8d5 100%);
+}
+
+.adminGradiant {
+  background: linear-gradient(180deg, #9892be 0%, #d6c8d5 100%);
+}
+
+input[type="radio"]{
+  accent-color: green;
 }
