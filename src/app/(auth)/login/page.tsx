@@ -119,8 +119,8 @@ const LoginPage = () => {
           >
             Password
           </label>
-          <div className="w-full flex flex-col">
-            <div className="w-full flex item-center relative">
+          <div className="w-full">
+            <div className="w-full flex items-center relative">
               <input
                 {...register("password")}
                 type={showPassword ? "text" : "password"}

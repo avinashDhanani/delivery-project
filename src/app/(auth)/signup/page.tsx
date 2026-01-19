@@ -198,7 +198,7 @@ const SignUpPage = () => {
               Password
             </label>
             <div className="w-full flex flex-col">
-              <div className="relative">
+              <div className="w-full flex items-center relative">
                 <input
                   {...register("password")}
                   type={showPassword ? "text" : "password"}
@@ -235,7 +235,7 @@ const SignUpPage = () => {
               Confirm Password
             </label>
             <div className="w-full flex flex-col">
-              <div className="relative">
+              <div className="w-full flex items-center relative">
                 <input
                   {...register("confirmPassword")}
                   type={showConfirmPassword ? "text" : "password"}
