@@ -9,7 +9,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../../../store/store";
-import { setLoading, setError, setOtpRequired, setOtpType } from "../../../store/slices/authSlice";
+import {
+  setLoading,
+  setError,
+  setOtpRequired,
+  setOtpType,
+} from "../../../store/slices/authSlice";
+import AuthCard from "../../../shared/authCard";
+import InputField from "../../../shared/inputField";
+import Button from "../../../shared/button";
 
 // Validation schema
 const forgotPasswordSchema = z.object({
@@ -29,7 +37,7 @@ const ForgotPasswordPage = () => {
     handleSubmit,
     formState: { errors },
     setError: setFormError,
-    clearErrors
+    clearErrors,
   } = useForm<ForgotPasswordFormData>({
     resolver: zodResolver(forgotPasswordSchema),
   });
@@ -40,10 +48,10 @@ const ForgotPasswordPage = () => {
     clearErrors();
 
     try {
-      const response = await fetch('/api/auth/forgot-password', {
-        method: 'POST',
+      const response = await fetch("/api/auth/forgot-password", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ email: data.email }),
       });
@@ -52,103 +60,70 @@ const ForgotPasswordPage = () => {
 
       if (result.success) {
         // Set OTP type and redirect to verification
-        dispatch(setOtpType('forgot_password'));
+        dispatch(setOtpType("forgot_password"));
         dispatch(setOtpRequired(true));
         router.push(`/verify?email=${encodeURIComponent(data.email)}`);
       } else {
-        dispatch(setError(result.message || 'Failed to send reset email'));
+        dispatch(setError(result.message || "Failed to send reset email"));
       }
     } catch (error) {
-      dispatch(setError('Network error. Please try again.'));
+      dispatch(setError("Network error. Please try again."));
     } finally {
       dispatch(setLoading(false));
     }
   };
 
   return (
-    <div className="w-full flex flex-col items-center justify-center max-w-[465px] mx-auto">
-      <h1 className="text-center font-bold text-[28px] 1xl:text-[34px] text-white mb-1">
-        FORGOT PASSWORD?
-      </h1>
-      <p className="text-center font-medium text-sm 1xl:text-base text-white mb-5">
-        Don’t worry! Enter your registered email address to get password reset
-        instructions.
-      </p>
-      <form onSubmit={handleSubmit(onSubmit)} className="w-full rounded-[25px] 1xl:rounded-[35px] border border-solid p-5 1xl:p-[30px] bg-white border-theme-white-100 shadow-sm">
-        <div className="w-full flex items-center justify-center mb-5">
-          <Image
-            className="size-20 1xl:size-[100px] shrink-0"
-            src={"assets/images/svg/mailbox-icon.svg"}
-            width={100}
-            height={100}
-            alt="icon"
-          ></Image>
-        </div>
-
-        {error && (
-          <div className="w-full mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
-            <p className="text-red-600 text-sm">{error}</p>
-          </div>
-        )}
-
-        <div className="w-full mb-4">
-          <label
-            htmlFor="email"
-            className="text-base 1xl:text-lg font-semibold text-theme-black-50 inline-flex mb-[10px]"
-          >
-            Email Address
-          </label>
-          <div className="w-full flex flex-col">
-            <input
-              {...register("email")}
-              type="email"
-              id="email"
-              placeholder="Sample@gmail.com"
-              className={`text-base 1xl:text-lg font-medium placeholder:text-theme-black-150 w-full min-h-[56px] 1xl:min-h-[66px] 1xl:px-5 px-4 py-3 1xl:py-4 rounded-xl 1xl:rounded-[15px] border bg-theme-white-150 outline-none text-theme-darkblue-00 ${
-                errors.email ? 'border-red-500' : 'border-theme-white-100'
-              }`}
-            />
-            {errors.email && (
-              <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
-            )}
-          </div>
-        </div>
-        <div className="w-full flex items-center gap-1.5 mb-5 1xl:mb-[30px]">
-          <p className="font-medium text-theme-black-50 text-sm 1xl:text-base">
-            Didn’t get a code?
-          </p>
-          <Link
-            href={""}
-            className="cursor-pointer font-semibold text-sm 1xl:text-base text-theme-blue-00 hover:underline hover:underline-offset-4"
-          >
-            Resend Code
-          </Link>
-        </div>
-        <div className="w-full mb-4 1xl:mb-5">
-          <button
-            type="submit"
-            disabled={isLoading}
-            title="Send"
-            className="w-full p-2 h-12 1xl:h-14 cursor-pointer flex items-center justify-center gap-2.5 text-white text-base 1xl:text-lg font-semibold bg-theme-purple-50 hover:bg-theme-purple-00 rounded-[10px] disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <span className="relative top-0.5">
-              {isLoading ? 'Sending...' : 'Send'}
-            </span>
-          </button>
-        </div>
-        <div className="w-full flex items-center justify-center gap-1.5">
-          <p className="font-medium text-theme-black-50 text-sm 1xl:text-base">
-            Back to
-          </p>
-          <Link
-            href={"/login"}
-            className="cursor-pointer font-semibold text-sm 1xl:text-base text-theme-blue-00 hover:underline hover:underline-offset-4"
-          >
-            Login
-          </Link>
-        </div>
-      </form>
-    </div>
+    <AuthCard
+      title="FORGOT PASSWORD?"
+      subtitle="Don’t worry! Enter your registered email address to get password reset instructions."
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <Image
+        className="mx-auto mb-5 size-[100px] shrink-0"
+        src={"assets/images/svg/mailbox-icon.svg"}
+        width={100}
+        height={100}
+        alt="icon"
+      ></Image>
+      <InputField
+        id="email"
+        label="Email Address"
+        type="email"
+        placeholder="Sample@gmail.com"
+        register={register}
+        error={errors.email?.message}
+      />
+      <div className="w-full flex items-center gap-1.5 mb-[30px]">
+        <span className="font-medium text-theme-black-50 text-base">
+          Didn’t get a code?
+        </span>
+        <Link
+          href={""}
+          className="cursor-pointer font-semibold text-base text-theme-blue-00 hover:underline hover:underline-offset-4"
+        >
+          Resend Code
+        </Link>
+      </div>
+      <Button
+        disabled={isLoading}
+        btnClass="w-full mb-5"
+        title={isLoading ? "Sending..." : "Send"}
+        size="large"
+        variant="purple"
+      />
+      <div className="w-full flex items-center justify-center gap-1.5">
+        <span className="font-medium text-theme-black-50 text-base">
+          Back to
+        </span>
+        <Link
+          href={"/login"}
+          className="cursor-pointer font-semibold text-base text-theme-blue-00 hover:underline hover:underline-offset-4"
+        >
+          Login
+        </Link>
+      </div>
+    </AuthCard>
   );
 };
 

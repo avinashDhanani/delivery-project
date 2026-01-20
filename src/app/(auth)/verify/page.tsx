@@ -9,12 +9,24 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../../../store/store";
-import { setLoading, setError, clearAuth, setToken, setUser } from "../../../store/slices/authSlice";
+import {
+  setLoading,
+  setError,
+  clearAuth,
+  setToken,
+  setUser,
+} from "../../../store/slices/authSlice";
 import { clientAuthUtils } from "../../../lib/clientAuth";
+import AuthCard from "../../../shared/authCard";
+import InputField from "../../../shared/inputField";
+import Button from "../../../shared/button";
 
 // Validation schema
 const otpSchema = z.object({
-  otp: z.string().length(6, "Please enter complete 6-digit OTP").regex(/^\d{6}$/, "OTP must be 6 digits"),
+  otp: z
+    .string()
+    .length(6, "Please enter complete 6-digit OTP")
+    .regex(/^\d{6}$/, "OTP must be 6 digits"),
 });
 
 type OtpFormData = z.infer<typeof otpSchema>;
@@ -25,10 +37,10 @@ const VerifyPage = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const { user, isAuthenticated, otpType, error, isLoading } = useSelector(
-    (state: RootState) => state.auth
+    (state: RootState) => state.auth,
   );
 
-  const [otp, setOtp] = useState(['', '', '', '', '', '']);
+  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [resendTimer, setResendTimer] = useState(30);
   const [canResend, setCanResend] = useState(false);
   const inputRefs = useRef<HTMLInputElement[]>([]);
@@ -39,13 +51,13 @@ const VerifyPage = () => {
     formState: { errors },
     setError: setFormError,
     clearErrors,
-    setValue
+    setValue,
   } = useForm<OtpFormData>({
     resolver: zodResolver(otpSchema),
   });
 
   // Get email from URL params or user state
-  const email = searchParams.get('email') || user?.email || '';
+  const email = searchParams.get("email") || user?.email || "";
 
   useEffect(() => {
     if (!otpType) {
@@ -75,8 +87,8 @@ const VerifyPage = () => {
     setOtp(newOtp);
 
     // Update form value
-    const otpString = newOtp.join('');
-    setValue('otp', otpString);
+    const otpString = newOtp.join("");
+    setValue("otp", otpString);
 
     // Auto-focus next input
     if (value && index < 5) {
@@ -84,8 +96,11 @@ const VerifyPage = () => {
     }
   };
 
-  const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Backspace' && !otp[index] && index > 0) {
+  const handleKeyDown = (
+    index: number,
+    e: React.KeyboardEvent<HTMLInputElement>,
+  ) => {
+    if (e.key === "Backspace" && !otp[index] && index > 0) {
       inputRefs.current[index - 1]?.focus();
     }
   };
@@ -96,10 +111,10 @@ const VerifyPage = () => {
     clearErrors();
 
     try {
-      const response = await fetch('/api/auth/verify-otp', {
-        method: 'POST',
+      const response = await fetch("/api/auth/verify-otp", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           ...clientAuthUtils.getAuthHeaders(),
         },
         body: JSON.stringify({
@@ -121,16 +136,16 @@ const VerifyPage = () => {
         }
 
         // Handle different OTP verification types
-        if (otpType === 'registration') {
+        if (otpType === "registration") {
           // After registration OTP, redirect to KYC
-          router.push('/kyc');
-        } else if (otpType === 'login') {
+          router.push("/kyc");
+        } else if (otpType === "login") {
           // After login OTP, fetch user profile to check kyc_status and redirect accordingly
           try {
-            const profileResponse = await fetch('/api/user/profile', {
+            const profileResponse = await fetch("/api/user/profile", {
               headers: {
-                'Authorization': `Bearer ${result.data?.token}`,
-                'Content-Type': 'application/json',
+                Authorization: `Bearer ${result.data?.token}`,
+                "Content-Type": "application/json",
               },
             });
             const profileData = await profileResponse.json();
@@ -140,34 +155,36 @@ const VerifyPage = () => {
 
               if (kycStatus === 0 || kycStatus === 3) {
                 // KYC not done or rejected, go to KYC page
-                router.push('/kyc');
+                router.push("/kyc");
               } else if (kycStatus === 1) {
                 // KYC submitted, waiting for approval
-                router.push('/welcome');
+                router.push("/welcome");
               } else if (kycStatus === 2) {
                 // KYC approved, go to dashboard
-                router.push('/dashboard');
+                router.push("/dashboard");
               } else {
                 // Default fallback
-                router.push('/dashboard');
+                router.push("/dashboard");
               }
             } else {
               // Fallback if profile fetch fails
-              router.push('/dashboard');
+              router.push("/dashboard");
             }
           } catch (error) {
-            console.error('Failed to fetch user profile:', error);
-            router.push('/dashboard');
+            console.error("Failed to fetch user profile:", error);
+            router.push("/dashboard");
           }
-        } else if (otpType === 'forgot_password') {
+        } else if (otpType === "forgot_password") {
           // After forgot password OTP, redirect to new password page with email and OTP
-          router.push(`/new-password?email=${encodeURIComponent(email)}&otp=${encodeURIComponent(data.otp)}`);
+          router.push(
+            `/new-password?email=${encodeURIComponent(email)}&otp=${encodeURIComponent(data.otp)}`,
+          );
         }
       } else {
-        dispatch(setError(result.message || 'OTP verification failed'));
+        dispatch(setError(result.message || "OTP verification failed"));
       }
     } catch (error) {
-      dispatch(setError('Network error. Please try again.'));
+      dispatch(setError("Network error. Please try again."));
     } finally {
       dispatch(setLoading(false));
     }
@@ -180,27 +197,27 @@ const VerifyPage = () => {
     dispatch(setError(null));
 
     try {
-      let endpoint = '';
+      let endpoint = "";
       let body = {};
 
-      if (otpType === 'registration') {
-        endpoint = '/api/auth/register';
+      if (otpType === "registration") {
+        endpoint = "/api/auth/register";
         // For resend, we'd need to get the registration data from somewhere
         // This is a simplified version - in production, store this in state or localStorage
-        dispatch(setError('Please register again'));
+        dispatch(setError("Please register again"));
         return;
-      } else if (otpType === 'login') {
-        endpoint = '/api/auth/login';
-        body = { email, password: 'dummy' }; // This won't work - need better implementation
-      } else if (otpType === 'forgot_password') {
-        endpoint = '/api/auth/forgot-password';
+      } else if (otpType === "login") {
+        endpoint = "/api/auth/login";
+        body = { email, password: "dummy" }; // This won't work - need better implementation
+      } else if (otpType === "forgot_password") {
+        endpoint = "/api/auth/forgot-password";
         body = { email };
       }
 
       const response = await fetch(endpoint, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(body),
       });
@@ -212,10 +229,10 @@ const VerifyPage = () => {
         setCanResend(false);
         dispatch(setError(null));
       } else {
-        dispatch(setError(data.message || 'Failed to resend OTP'));
+        dispatch(setError(data.message || "Failed to resend OTP"));
       }
     } catch (error) {
-      dispatch(setError('Network error. Please try again.'));
+      dispatch(setError("Network error. Please try again."));
     } finally {
       dispatch(setLoading(false));
     }
@@ -223,12 +240,12 @@ const VerifyPage = () => {
 
   const getTitle = () => {
     switch (otpType) {
-      case 'registration':
-        return 'Verify your email';
-      case 'login':
+      case "registration":
+        return "Verify your email";
+      case "login":
         return "Verify it's you";
-      case 'forgot_password':
-        return 'Reset your password';
+      case "forgot_password":
+        return "Reset your password";
       default:
         return "Verify it's you";
     }
@@ -236,34 +253,30 @@ const VerifyPage = () => {
 
   const getDescription = () => {
     switch (otpType) {
-      case 'registration':
-        return 'Enter the code we sent to your email';
-      case 'login':
-        return 'Enter the code we sent to your registered email/phone';
-      case 'forgot_password':
-        return 'Enter the code we sent to reset your password';
+      case "registration":
+        return "Enter the code we sent to your email";
+      case "login":
+        return "Enter the code we sent to your registered email/phone";
+      case "forgot_password":
+        return "Enter the code we sent to reset your password";
       default:
-        return 'Enter the code we sent to the number below';
+        return "Enter the code we sent to the number below";
     }
   };
 
   return (
-    <div className="w-full flex flex-col items-center justify-center max-w-[465px] mx-auto">
-      <h1 className="text-center font-bold text-[28px] 1xl:text-[34px] text-white mb-1">
-        {getTitle()}
-      </h1>
-      <p className="text-center font-medium text-sm 1xl:text-base text-white mb-5">
-        {getDescription()}
-      </p>
+    <AuthCard
+      title={getTitle()}
+      subtitle={getDescription()}
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      {/* Hidden input for form validation */}
+      <input type="hidden" {...register("otp")} />
 
-      <form onSubmit={handleSubmit(onSubmit)} className="w-full rounded-[25px] 1xl:rounded-[35px] border border-solid p-5 1xl:p-[30px] bg-white border-theme-white-100 shadow-sm">
-        {/* Hidden input for form validation */}
-        <input type="hidden" {...register("otp")} />
-
-        <div className="w-full grid grid-cols-6 gap-1 mb-4">
-          {otp.map((digit, index) => (
+      <div className="w-full grid grid-cols-6 gap-1 mb-4">
+        {otp.map((digit, index) => (
+          <>
             <input
-              key={index}
               ref={(el) => {
                 if (el) inputRefs.current[index] = el;
               }}
@@ -274,61 +287,38 @@ const VerifyPage = () => {
               maxLength={1}
               className="text-base text-center 1xl:text-lg font-medium placeholder:text-theme-black-150 aspect-square p-3 rounded-xl 1xl:rounded-[15px] border border-theme-white-100 bg-theme-white-150 outline-none text-theme-darkblue-00 focus:border-theme-blue-00"
             />
-          ))}
-        </div>
+          </>
+        ))}
+      </div>
 
-        {error && (
-          <div className="w-full mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
-            <p className="text-red-600 text-sm">{error}</p>
-          </div>
-        )}
-
-        {errors.otp && (
-          <div className="w-full mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
-            <p className="text-red-600 text-sm">{errors.otp.message}</p>
-          </div>
-        )}
-
-        <div className="w-full flex items-center gap-1.5 mb-5 1xl:mb-[30px]">
-          <p className="font-medium text-theme-black-50 text-sm 1xl:text-base">
-            Didn't get a code?
-          </p>
-          {canResend ? (
-            <button
-              type="button"
-              onClick={handleResendOtp}
-              disabled={isLoading}
-              className="cursor-pointer font-semibold text-sm 1xl:text-base text-theme-blue-00 hover:underline hover:underline-offset-4 disabled:opacity-50"
-            >
-              Resend Code
-            </button>
-          ) : (
-            <span className="font-semibold text-sm 1xl:text-base text-theme-black-150">
-              Resend in {resendTimer}s
-            </span>
-          )}
-        </div>
-
-        <div className="w-full">
+      <div className="w-full flex items-center gap-1.5 mb-5">
+        <span className="font-medium text-theme-black-50 text-base">
+          Didn't get a code?
+        </span>
+        {canResend ? (
           <button
-            type="submit"
-            disabled={isLoading || otp.join('').length !== 6}
-            className="w-full p-2 h-12 1xl:h-14 cursor-pointer flex items-center justify-center gap-2.5 text-white text-base 1xl:text-lg font-semibold bg-theme-purple-50 hover:bg-theme-purple-00 rounded-[10px] disabled:opacity-50 disabled:cursor-not-allowed"
+            type="button"
+            onClick={handleResendOtp}
+            disabled={isLoading}
+            className="cursor-pointer font-semibold text-base text-theme-blue-00 hover:underline hover:underline-offset-4 disabled:opacity-50"
           >
-            <Image
-              className="w-5 1xl:w-[24px] img-filter-white h-auto shrink-0"
-              src={"assets/images/svg/user-black-icon.svg"}
-              width={24}
-              height={24}
-              alt="logo"
-            ></Image>
-            <span className="relative top-0.5">
-              {isLoading ? 'Verifying...' : 'Confirm'}
-            </span>
+            Resend Code
           </button>
-        </div>
-      </form>
-    </div>
+        ) : (
+          <span className="font-semibold text-base text-theme-black-150">
+            Resend in {resendTimer}s
+          </span>
+        )}
+      </div>
+      <Button
+        disabled={isLoading || otp.join("").length !== 6}
+        btnClass="w-full"
+        title={isLoading ? "Verifying..." : "Confirm"}
+        size="large"
+        variant="purple"
+        iconSrc={"assets/images/svg/user-black-icon.svg"}
+      />
+    </AuthCard>
   );
 };
 

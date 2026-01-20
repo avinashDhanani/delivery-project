@@ -88,10 +88,10 @@ const SignUpPage = () => {
 
   return (
     <div className="w-full flex flex-col items-center justify-center max-w-[653px] mx-auto">
-      <h1 className="text-center font-bold text-[28px] 1xl:text-[34px] text-white mb-1">
+      <h1 className="authTitle">
         CREATE YOUR ACCOUNT
       </h1>
-      <p className="text-center font-medium text-sm 1xl:text-base text-white mb-5">
+      <p className="authSubtitle">
         Welcome to Ark Air - Let's create account
       </p>
       <form onSubmit={handleSubmit(onSubmit)} className="w-full rounded-[25px] 1xl:rounded-[35px] border border-solid p-5 1xl:p-[30px] bg-white border-theme-white-100 shadow-sm">

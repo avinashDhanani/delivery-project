@@ -33,8 +33,9 @@ input[type="number"] {
     hue-rotate(329deg) brightness(107%) contrast(102%);
 }
 
-.img-filter-red{
-  filter: brightness(0) saturate(100%) invert(10%) sepia(97%) saturate(4226%) hue-rotate(351deg) brightness(120%) contrast(121%);
+.img-filter-red {
+  filter: brightness(0) saturate(100%) invert(10%) sepia(97%) saturate(4226%)
+    hue-rotate(351deg) brightness(120%) contrast(121%);
 }
 
 .hide-scrollbar {
@@ -54,6 +55,6 @@ input[type="number"] {
   background: linear-gradient(180deg, #9892be 0%, #d6c8d5 100%);
 }
 
-input[type="radio"]{
+input[type="radio"] {
   accent-color: green;
 }

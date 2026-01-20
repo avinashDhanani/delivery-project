@@ -1,7 +1,9 @@
 import React, { FC } from "react";
-import { IChildprops } from "../../constants/child-prop.interface";
-import AuthHeader from "./components/header";
+
 import Image from "next/image";
+
+import AuthHeader from "../../components/auth-header";
+import { IChildprops } from "../../constants/child-prop.interface";
 
 const AuthLayout: FC<Readonly<IChildprops>> = ({ children }) => {
   return (

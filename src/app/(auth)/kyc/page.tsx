@@ -231,10 +231,10 @@ const KycPage = () => {
   }
   return (
     <div className="w-full flex flex-col items-center justify-center max-w-[695px] mx-auto">
-      <h1 className="text-center font-bold text-[28px] 1xl:text-[34px] text-white mb-1">
+      <h1 className="authTitle">
         KYC MANAGEMENT
       </h1>
-      <p className="text-center font-medium text-sm 1xl:text-base text-white mb-5">
+      <p className="authSubtitle">
         Upload your Document and let a KYC
       </p>
       <form
