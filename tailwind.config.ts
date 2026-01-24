@@ -51,6 +51,7 @@ const config: Config = {
             "50": withOpacity("black-50"),
             "100": withOpacity("black-100"),
             "150": withOpacity("black-150"),
+            "200": withOpacity("black-200"),
           },
           purple: {
             "00": withOpacity("purple"),
@@ -65,10 +66,17 @@ const config: Config = {
           blue: {
             "00": withOpacity("blue"),
             "50": withOpacity("blue-50"),
+            "100": withOpacity("blue-100"),
           },
           red: {
             "00": withOpacity("red"),
             "50": withOpacity("red-50"),
+          },
+          mustard: {
+            "00": withOpacity("mustard"),
+          },
+          peach: {
+            "00": withOpacity("peach"),
           },
         },
       },

@@ -12,6 +12,7 @@ export const createLightModeVariables = `
         ${css_var_prefix}-black-50: ${hexToRGB("#232323")};
         ${css_var_prefix}-black-100: ${hexToRGB("#333333")};
         ${css_var_prefix}-black-150: ${hexToRGB("#A8ABAE")};
+        ${css_var_prefix}-black-200: ${hexToRGB("#5D5D81")};
 
         ${css_var_prefix}-purple: ${hexToRGB("#928AAF")};
         ${css_var_prefix}-purple-50: ${hexToRGB("#8585A9")};
@@ -23,8 +24,14 @@ export const createLightModeVariables = `
 
         ${css_var_prefix}-blue: ${hexToRGB("#4D86FF")};
         ${css_var_prefix}-blue-50: ${hexToRGB("#5B93FF")};
+        ${css_var_prefix}-blue-100: ${hexToRGB("#605BFF")};
 
         ${css_var_prefix}-red: ${hexToRGB("#F00004")};
         ${css_var_prefix}-red-50: ${hexToRGB("#FFF5F5")};
+
+        ${css_var_prefix}-mustard: ${hexToRGB("#FFC327")};
+
+        ${css_var_prefix}-peach: ${hexToRGB("#FF8F6B")};
+
         }
 `;

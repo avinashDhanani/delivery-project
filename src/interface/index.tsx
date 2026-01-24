@@ -1,5 +1,5 @@
-import { IconName } from "@/shared/icon";
 import { ReactNode } from "react";
+import { IconName } from "@/shared/icon";
 
 export interface IChildProps {
   children: React.ReactNode;
@@ -32,4 +32,11 @@ export interface ModalProps {
   saveDisabled?: boolean;
   widthClass?: string;
   children: ReactNode;
+}
+
+export interface CustomerDashboardProps {
+  topCardIcon: IconName;
+  topCardIconBg: string;
+  topCardIconTitle: string;
+  topCardIconValue: string;
 }

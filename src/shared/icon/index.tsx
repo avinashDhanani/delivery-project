@@ -3,9 +3,13 @@ import CrossIcon from "@/assets/icons/CrossIcon";
 import DocIcon from "@/assets/icons/DocIcon";
 import EyeCloseIcon from "@/assets/icons/EyeCloseIcon";
 import EyeOpenIcon from "@/assets/icons/EyeOpenIcon";
+import FillBag2Icon from "@/assets/icons/FillBag2Icon";
+import FillBagIcon from "@/assets/icons/FillBagIcon";
 import FillBellIcon from "@/assets/icons/FillBellIcon";
+import FillClipboardCheckIcon from "@/assets/icons/FillClipboardCheckIcon";
 import FillDashboardIcon from "@/assets/icons/FillDashboardIcon";
 import FillGenerateOrderIcon from "@/assets/icons/FillGenerateOrderIcon";
+import FillHeartIcon from "@/assets/icons/FillHeartIcon";
 import FillMasterReceiverIcon from "@/assets/icons/FillMasterReceiverIcon";
 import FillMasterSenderIcon from "@/assets/icons/FillMasterSenderIcon";
 import FillNotificationIcon from "@/assets/icons/FillNotificationIcon";
@@ -41,7 +45,11 @@ export type IconName =
   | "stroke-generate-order-icon"
   | "search-icon"
   | "fill-bell-icon"
-  | "fill-phone-icon";
+  | "fill-phone-icon"
+  | "fill-bag-icon"
+  | "fill-clipboard-check-icon"
+  | "fill-heart-icon"
+  | "fill-bag2-icon";
 
 interface IconProps {
   name: IconName;
@@ -112,6 +120,18 @@ const Icon = ({ name, className = "" }: IconProps) => {
 
     case "fill-phone-icon":
       return <FillPhoneIcon className={className} />;
+
+    case "fill-bag-icon":
+      return <FillBagIcon className={className} />;
+
+    case "fill-clipboard-check-icon":
+      return <FillClipboardCheckIcon className={className} />;
+
+    case "fill-heart-icon":
+      return <FillHeartIcon className={className} />;
+
+    case "fill-bag2-icon":
+      return <FillBag2Icon className={className} />;
 
     default:
       return null;
