@@ -56,6 +56,8 @@ const config: Config = {
             "00": withOpacity("purple"),
             "50": withOpacity("purple-50"),
             "100": withOpacity("purple-100"),
+            "150": withOpacity("purple-150"),
+            "200": withOpacity("purple-200"),
           },
           darkblue: {
             "00": withOpacity("darkblue"),

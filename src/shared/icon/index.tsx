@@ -3,8 +3,22 @@ import CrossIcon from "@/assets/icons/CrossIcon";
 import DocIcon from "@/assets/icons/DocIcon";
 import EyeCloseIcon from "@/assets/icons/EyeCloseIcon";
 import EyeOpenIcon from "@/assets/icons/EyeOpenIcon";
+import FillBellIcon from "@/assets/icons/FillBellIcon";
+import FillDashboardIcon from "@/assets/icons/FillDashboardIcon";
+import FillGenerateOrderIcon from "@/assets/icons/FillGenerateOrderIcon";
+import FillMasterReceiverIcon from "@/assets/icons/FillMasterReceiverIcon";
+import FillMasterSenderIcon from "@/assets/icons/FillMasterSenderIcon";
+import FillNotificationIcon from "@/assets/icons/FillNotificationIcon";
+import FillPhoneIcon from "@/assets/icons/FillPhoneIcon";
+import IconLogo from "@/assets/icons/IconLogo";
 import PlusIcon from "@/assets/icons/PlusIcon";
+import SearchIcon from "@/assets/icons/SearchIcon";
 import SinglePersonIcon from "@/assets/icons/SinglePersonIcon";
+import StrokeDashboardIcon from "@/assets/icons/StrokeDashboardIcon";
+import StrokeGenerateOrderIcon from "@/assets/icons/StrokeGenerateOrderIcon";
+import StrokeMasterReceiverIcon from "@/assets/icons/StrokeMasterReceiverIcon";
+import StrokeMasterSenderIcon from "@/assets/icons/StrokeMasterSenderIcon";
+import StrokeNotificationIcon from "@/assets/icons/StrokeNotificationIcon";
 
 export type IconName =
   | "auth-logo"
@@ -13,7 +27,21 @@ export type IconName =
   | "eye-open-icon"
   | "eye-close-icon"
   | "plus-icon"
-  | "single-person-icon";
+  | "single-person-icon"
+  | "logo-icon"
+  | "stroke-dashboard-icon"
+  | "fill-dashboard-icon"
+  | "stroke-master-sender-icon"
+  | "fill-master-sender-icon"
+  | "stroke-master-receiver-icon"
+  | "fill-master-receiver-icon"
+  | "fill-notification-icon"
+  | "fill-generate-order-icon"
+  | "stroke-notification-icon"
+  | "stroke-generate-order-icon"
+  | "search-icon"
+  | "fill-bell-icon"
+  | "fill-phone-icon";
 
 interface IconProps {
   name: IconName;
@@ -42,6 +70,48 @@ const Icon = ({ name, className = "" }: IconProps) => {
 
     case "single-person-icon":
       return <SinglePersonIcon className={className} />;
+
+    case "logo-icon":
+      return <IconLogo className={className} />;
+
+    case "stroke-dashboard-icon":
+      return <StrokeDashboardIcon className={className} />;
+
+    case "fill-dashboard-icon":
+      return <FillDashboardIcon className={className} />;
+
+    case "stroke-master-sender-icon":
+      return <StrokeMasterSenderIcon className={className} />;
+
+    case "fill-master-sender-icon":
+      return <FillMasterSenderIcon className={className} />;
+
+    case "stroke-master-receiver-icon":
+      return <StrokeMasterReceiverIcon className={className} />;
+
+    case "fill-master-receiver-icon":
+      return <FillMasterReceiverIcon className={className} />;
+
+    case "fill-notification-icon":
+      return <FillNotificationIcon className={className} />;
+
+    case "fill-generate-order-icon":
+      return <FillGenerateOrderIcon className={className} />;
+
+    case "stroke-notification-icon":
+      return <StrokeNotificationIcon className={className} />;
+
+    case "stroke-generate-order-icon":
+      return <StrokeGenerateOrderIcon className={className} />;
+
+    case "search-icon":
+      return <SearchIcon className={className} />;
+
+    case "fill-bell-icon":
+      return <FillBellIcon className={className} />;
+
+    case "fill-phone-icon":
+      return <FillPhoneIcon className={className} />;
 
     default:
       return null;

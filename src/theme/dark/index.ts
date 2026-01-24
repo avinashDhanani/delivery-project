@@ -16,6 +16,8 @@ export const createDarkModeVariables = `
         ${css_var_prefix}-purple: ${hexToRGB("#928AAF")};
         ${css_var_prefix}-purple-50: ${hexToRGB("#8585A9")};
         ${css_var_prefix}-purple-100: ${hexToRGB("#333342")};
+        ${css_var_prefix}-purple-150: ${hexToRGB("#928aaf")};
+        ${css_var_prefix}-purple-200: ${hexToRGB("#AFAABF")};
 
         ${css_var_prefix}-darkblue: ${hexToRGB("#233158")};
 
