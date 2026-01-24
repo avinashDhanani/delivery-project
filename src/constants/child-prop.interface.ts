@@ -1,1 +1,0 @@
-export interface IChildprops { children: React.ReactNode }

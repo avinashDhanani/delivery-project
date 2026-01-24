@@ -1,23 +1,21 @@
 "use client";
 
+import React from "react";
+import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState, AppDispatch } from "../../../store/store";
-import {
-  setLoading,
-  setError,
-  setOtpRequired,
-  setOtpType,
-} from "../../../store/slices/authSlice";
-import AuthCard from "../../../shared/authCard";
-import InputField from "../../../shared/inputField";
-import Button from "../../../shared/button";
+import { AppDispatch, RootState } from "@/store/store";
+import { setError, setLoading, setOtpRequired, setOtpType } from "@/store/slices/authSlice";
+
+import AuthCard from "@/shared/authCard";
+import InputField from "@/shared/inputField";
+import Button from "@/shared/button";
 
 // Validation schema
 const forgotPasswordSchema = z.object({

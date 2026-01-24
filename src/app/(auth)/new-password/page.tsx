@@ -1,18 +1,21 @@
 "use client";
 
+import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
+
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useForm } from "react-hook-form";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState, AppDispatch } from "../../../store/store";
-import { setLoading, setError } from "../../../store/slices/authSlice";
-import Button from "../../../shared/button";
-import AuthCard from "../../../shared/authCard";
-import InputField from "../../../shared/inputField";
+import { AppDispatch, RootState } from "@/store/store";
+import { setError, setLoading } from "@/store/slices/authSlice";
+
+import AuthCard from "@/shared/authCard";
+import InputField from "@/shared/inputField";
+import Button from "@/shared/button";
 
 // Validation schema
 const newPasswordSchema = z

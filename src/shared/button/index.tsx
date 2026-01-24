@@ -1,25 +1,15 @@
 "use client";
 import React from "react";
-import Image from "next/image";
+import Icon from "@/shared/icon";
 
-interface ButtonProps {
-  title: string;
-  onClick?: () => void;
-  variant?: "purple" | "white";
-  btnClass?: string;
-  iconSrc?: string;
-  iconAlt?: string;
-  size?: "small" | "medium" | "large";
-  disabled?: boolean;
-}
+import { ButtonProps } from "@/interface";
 
 const Button = ({
   title,
   onClick,
   variant = "purple",
   btnClass = "",
-  iconSrc,
-  iconAlt = "icon",
+  iconName,
   size = "small",
   disabled = false,
 }: ButtonProps) => {
@@ -46,17 +36,15 @@ const Button = ({
       disabled={disabled}
       className={`${baseClass} ${sizeClasses[size]} ${variants[variant]} ${btnClass}`}
     >
-      {iconSrc && (
-        <Image
-          src={iconSrc}
-          alt={iconAlt}
-          width={18}
-          height={18}
+      {iconName && (
+        <Icon
+          name={iconName}
           className={`size-5 shrink-0 ${
-            variant === "purple" ? "img-filter-white" : ""
+            variant === "purple" ? "text-white" : "text-theme-black-00"
           }`}
         />
       )}
+
       <span>{title}</span>
     </button>
   );

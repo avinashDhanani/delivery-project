@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
+import Icon from "../icon";
 
 interface InputProps {
   id: string;
@@ -30,6 +31,8 @@ const InputField = ({
   const [showPassword, setShowPassword] = useState(false);
 
   const isPassword = type === "password" && showPasswordToggle;
+
+  const IconName = showPassword ? "eye-open-icon" : "eye-close-icon";
 
   const baseClass =
     "w-full font-medium outline-none border bg-theme-white-150 text-theme-darkblue-00 transition disabled:opacity-50 disabled:cursor-not-allowed placeholder:text-theme-black-150";
@@ -74,26 +77,14 @@ const InputField = ({
               type="button"
               disabled={disabled}
               onClick={() => setShowPassword((prev) => !prev)}
-              className={`absolute right-5 ${showPassword ? "size-6 -mr-0.5 -mt-0.5" : "size-5"} flex items-center justify-center hover:opacity-75 disabled:cursor-not-allowed`}
+              className={`absolute right-5 flex items-center justify-center hover:opacity-75 disabled:cursor-not-allowed`}
             >
-              <Image
-                src={
-                  showPassword
-                    ? "/assets/images/svg/eye-open.svg"
-                    : "/assets/images/svg/eye-close.svg"
-                }
-                alt="toggle password"
-                width={18}
-                height={18}
-                className="size-full"
-              />
+              <Icon className="size-full" name={IconName} />
             </button>
           )}
         </div>
 
-        {error && (
-          <p className="text-red-500 text-sm mt-1">{error}</p>
-        )}
+        {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
       </div>
     </div>
   );

@@ -1,24 +1,19 @@
 "use client";
 
-import Link from "next/link";
 import React from "react";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState, AppDispatch } from "../../../store/store";
-import {
-  setLoading,
-  setError,
-  setOtpRequired,
-  setOtpType,
-  setUser,
-  setToken,
-} from "../../../store/slices/authSlice";
-import AuthCard from "../../../shared/authCard";
-import Button from "../../../shared/button";
-import InputField from "../../../shared/inputField";
+
+import { AppDispatch, RootState } from "@/store/store";
+import AuthCard from "@/shared/authCard";
+import InputField from "@/shared/inputField";
+import Button from "@/shared/button";
+import { setError, setLoading, setOtpRequired, setOtpType, setToken, setUser } from "@/store/slices/authSlice";
 
 // Validation schema
 const loginSchema = z.object({
@@ -117,7 +112,7 @@ const LoginPage = () => {
         title={isLoading ? "Logging in..." : "Login"}
         size="large"
         variant="purple"
-        iconSrc={"assets/images/svg/user-black-icon.svg"}
+        iconName="single-person-icon"
       />
     </AuthCard>
   );

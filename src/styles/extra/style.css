@@ -24,7 +24,7 @@ input[type="number"] {
   @apply !max-w-[1440px];
 }
 
-.authGradiant {
+.authGradient {
   background: linear-gradient(180deg, #9892be 0%, #d6c8d5 100%);
 }
 
@@ -47,7 +47,7 @@ input[type="number"] {
   display: none; /* Chrome, Safari */
 }
 
-.authGradiant {
+.authGradient {
   background: linear-gradient(180deg, #9892be 0%, #d6c8d5 100%);
 }
 
@@ -57,4 +57,15 @@ input[type="number"] {
 
 input[type="radio"] {
   accent-color: green;
+}
+
+/* ===== Custom Scrollbar ===== */
+.custom-scrollbar {
+  scrollbar-width: thin; /* Firefox */
+}
+
+/* Chrome, Edge, Safari */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }

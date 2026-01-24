@@ -1,25 +1,24 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
 import React, { useState, useEffect, useRef } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+
+import { useRouter, useSearchParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState, AppDispatch } from "../../../store/store";
+
+import { AppDispatch, RootState } from "@/store/store";
 import {
-  setLoading,
   setError,
-  clearAuth,
+  setLoading,
   setToken,
   setUser,
-} from "../../../store/slices/authSlice";
-import { clientAuthUtils } from "../../../lib/clientAuth";
-import AuthCard from "../../../shared/authCard";
-import InputField from "../../../shared/inputField";
-import Button from "../../../shared/button";
+} from "@/store/slices/authSlice";
+
+import { clientAuthUtils } from "@/lib/clientAuth";
+import AuthCard from "@/shared/authCard";
+import Button from "@/shared/button";
 
 // Validation schema
 const otpSchema = z.object({
@@ -275,19 +274,17 @@ const VerifyPage = () => {
 
       <div className="w-full grid grid-cols-6 gap-1 mb-4">
         {otp.map((digit, index) => (
-          <>
-            <input
-              ref={(el) => {
-                if (el) inputRefs.current[index] = el;
-              }}
-              type="text"
-              value={digit}
-              onChange={(e) => handleOtpChange(index, e.target.value)}
-              onKeyDown={(e) => handleKeyDown(index, e)}
-              maxLength={1}
-              className="text-base text-center 1xl:text-lg font-medium placeholder:text-theme-black-150 aspect-square p-3 rounded-xl 1xl:rounded-[15px] border border-theme-white-100 bg-theme-white-150 outline-none text-theme-darkblue-00 focus:border-theme-blue-00"
-            />
-          </>
+          <input
+            ref={(el) => {
+              if (el) inputRefs.current[index] = el;
+            }}
+            type="text"
+            value={digit}
+            onChange={(e) => handleOtpChange(index, e.target.value)}
+            onKeyDown={(e) => handleKeyDown(index, e)}
+            maxLength={1}
+            className="text-base text-center 1xl:text-lg font-medium placeholder:text-theme-black-150 aspect-square p-3 rounded-xl 1xl:rounded-[15px] border border-theme-white-100 bg-theme-white-150 outline-none text-theme-darkblue-00 focus:border-theme-blue-00"
+          />
         ))}
       </div>
 
@@ -316,7 +313,7 @@ const VerifyPage = () => {
         title={isLoading ? "Verifying..." : "Confirm"}
         size="large"
         variant="purple"
-        iconSrc={"assets/images/svg/user-black-icon.svg"}
+        iconName="single-person-icon"
       />
     </AuthCard>
   );
