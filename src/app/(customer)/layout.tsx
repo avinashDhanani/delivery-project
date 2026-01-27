@@ -10,7 +10,7 @@ const CustomerLayout: FC<Readonly<IChildProps>> = ({ children }) => {
       <Sidebar />
       <div className="grow flex flex-col overflow-hidden">
         <Header />
-        <main className="p-4 flex-grow overflow-auto flex flex-col">{children}</main>
+        <main className="p-4 flex-grow overflow-hidden flex flex-col">{children}</main>
       </div>
     </div>
   );

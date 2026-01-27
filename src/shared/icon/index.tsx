@@ -1,4 +1,5 @@
 import AuthLogo from "@/assets/icons/AuthLogo";
+import ChevronLeft from "@/assets/icons/ChevronLeft";
 import CrossIcon from "@/assets/icons/CrossIcon";
 import DocIcon from "@/assets/icons/DocIcon";
 import EyeCloseIcon from "@/assets/icons/EyeCloseIcon";
@@ -14,6 +15,7 @@ import FillMasterReceiverIcon from "@/assets/icons/FillMasterReceiverIcon";
 import FillMasterSenderIcon from "@/assets/icons/FillMasterSenderIcon";
 import FillNotificationIcon from "@/assets/icons/FillNotificationIcon";
 import FillPhoneIcon from "@/assets/icons/FillPhoneIcon";
+import FilterIcon from "@/assets/icons/FilterIcon";
 import IconLogo from "@/assets/icons/IconLogo";
 import PlusIcon from "@/assets/icons/PlusIcon";
 import SearchIcon from "@/assets/icons/SearchIcon";
@@ -49,7 +51,9 @@ export type IconName =
   | "fill-bag-icon"
   | "fill-clipboard-check-icon"
   | "fill-heart-icon"
-  | "fill-bag2-icon";
+  | "fill-bag2-icon"
+  | "chevron-left"
+  | "filter-icon";
 
 interface IconProps {
   name: IconName;
@@ -132,6 +136,12 @@ const Icon = ({ name, className = "" }: IconProps) => {
 
     case "fill-bag2-icon":
       return <FillBag2Icon className={className} />;
+
+    case "chevron-left":
+      return <ChevronLeft className={className} />;
+
+    case "filter-icon":
+      return <FilterIcon className={className} />;
 
     default:
       return null;

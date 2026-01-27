@@ -59,7 +59,7 @@ const Sidebar = () => {
         >
           <Icon name="logo-icon" className="text-white" />
         </Link>
-        <ul className="flex-grow flex flex-col gap-4 overflow-auto mt-16 mb-8 p-3.5">
+        <ul className="flex-grow flex flex-col gap-4 overflow-auto custom-scrollbar mt-16 mb-8 p-3.5">
           {sidebarItems.map((item, index) => (
             <li className="w-full">
               <Tippy
